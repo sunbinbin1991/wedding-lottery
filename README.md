@@ -10,7 +10,7 @@
 
 效果如下：
 <br/>
-![image](https://github.com/sunbinbin1991/wedding-lottery/tree/master/Pictrues/display)
+![image](https://github.com/sunbinbin1991/wedding-lottery/tree/master/Pictrues/display.png)
 <br/><br/>
 <br/>
 
