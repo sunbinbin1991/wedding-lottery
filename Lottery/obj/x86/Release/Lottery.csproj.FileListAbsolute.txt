@@ -28,3 +28,4 @@ D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Release\Lottery.Properties.Resour
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Release\Lottery.csproj.GenerateResource.Cache
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Release\Lottery.exe
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Release\Lottery.pdb
+D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Release\Lottery.csprojResolveAssemblyReference.cache

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
+using System.Configuration;
 
 ///抽奖小程序,这次做一个滚动图片版本的，这个更简单
 ///魏韶颖
@@ -36,11 +37,11 @@ namespace Lottery
 
         private List<string> graynameList = new List<string>();
 
-        string _ImagePath = Path.Combine(Application.StartupPath, "Images");
+        string _ImagePath = Path.Combine(Application.StartupPath, "Images\\gift\\");
 
         string _GrayImagePath = Path.Combine(Application.StartupPath, "Images\\puke\\gray\\gray");
 
-        private string titleSoftName = "公司年会抽奖程序";
+        private string titleSoftName = "抽奖程序";
         private string titleWait = "正在抽奖,请点击停止";
 
         private static string _TipHelp = "请将员工的照片放到Images文件夹中，大小为128x128像素\n格式为jpg、png或bmp，并以员工姓名命名，如：张三.jpg";
@@ -50,11 +51,43 @@ namespace Lottery
         private bool bError;
         private Bitmap backbit;
 
+       
         //method 1: given prize define pre
+        Dictionary<int, Image> first_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> second_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> third_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> forth_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> fifth_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> sixth_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> seventh_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> eighth_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> ninth_prize = new Dictionary<int, Image>();
+        Dictionary<int, Image> tenth_prize = new Dictionary<int, Image>();
 
-        Dictionary<int, int> first_prize = new Dictionary<int, int>();
-        Dictionary<int, int> second_prize = new Dictionary<int, int>();
-        Dictionary<int, int> third_prize = new Dictionary<int, int>();
+        // setting of num of prize num;            
+        private int RmNum = 36; //max num is 36
+        private int first_num = 1;
+        private int second_num = 1;
+        private int third_num = 2;
+        private int forth_num = 2;
+        private int fifth_num = 2;
+        private int sixth_num = 2;
+        private int seventh_num = 4;
+        private int eightth_num = 4;
+        private int ninth_num = 5;
+        private int tenth_num = 8;
+
+        //get bitmap list
+        public Bitmap one_bit = null;
+        public Bitmap two_bit = null;
+        public Bitmap three_bit = null;
+        public Bitmap four_bit = null;
+        public Bitmap five_bit = null;
+        public Bitmap six_bit = null;
+        public Bitmap seven_bit = null;
+        public Bitmap eight_bit = null;
+        public Bitmap nine_bit = null;
+        public Bitmap ten_bit = null;
 
         Dictionary<int, int> choosed_prize = new Dictionary<int, int>();
 
@@ -66,23 +99,47 @@ namespace Lottery
         private void FormPrize_Load(object sender, EventArgs e)
         {
             this.lblEmpName.Text = null;
-
-            this.timer1.Interval = 160;//中间值
-            //this.cmbPrize.SelectedIndex = 1;
+            this.timer1.Interval = 90;//中间值
+                                      //this.cmbPrize.SelectedIndex = 1;
+            getGiftBitmap();
             InitData();
             InitPicBox();
-            showpuke();
-            backbit = new Bitmap(Image.FromFile("Images\\puke\\gray\\puke\\back.jpg"));
-            backbit.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            showpuke();                   
         }
-             
+        public void getGiftBitmap()
+        {
+
+            Bitmap bit = new Bitmap(Image.FromFile(_ImagePath+ "神奇面包处理器.png"));
+            one_bit = reResizeImage(bit, 180, 180);
+            Bitmap bit1 = new Bitmap(Image.FromFile(_ImagePath + "高科技生米加工仪.png"));
+            two_bit = reResizeImage(bit1, 180, 180);
+            Bitmap bit2 = new Bitmap(Image.FromFile(_ImagePath + "人类启蒙之火器.png"));
+            three_bit = reResizeImage(bit2, 180, 180);
+            Bitmap bit3 = new Bitmap(Image.FromFile(_ImagePath + "大分子去除仪.png"));
+            four_bit = reResizeImage(bit3, 180, 180);
+            Bitmap bit4 = new Bitmap(Image.FromFile(_ImagePath + "锅碗瓢盆没锅瓢盆一套.png"));
+            five_bit = reResizeImage(bit4, 180, 180);
+            Bitmap bit5 = new Bitmap(Image.FromFile(_ImagePath + "H20热进化器.png"));
+            six_bit = reResizeImage(bit5, 180, 180);
+            Bitmap bit6 = new Bitmap(Image.FromFile(_ImagePath + "凉凉器.png"));
+            seven_bit = reResizeImage(bit6, 180, 180);
+            Bitmap bit7 = new Bitmap(Image.FromFile(_ImagePath + "热控温保持器.png"));
+            eight_bit = reResizeImage(bit7, 180, 180);
+            Bitmap bit8 = new Bitmap(Image.FromFile(_ImagePath + "一带一路畅销瓷器套间.png"));
+            nine_bit = reResizeImage(bit8, 180, 180);
+            Bitmap bit9 = new Bitmap(Image.FromFile(_ImagePath + "社会人容纳器.png"));
+            ten_bit = reResizeImage(bit9, 180, 180);
+ 
+        }
+
 
         private void InitData()
         {
             LoadFromFile();
             if (bError)
             {
-                this.btnStart.Enabled = false;
+                //this.btnStart.Enabled = false;
+                this.ka.Enabled = false;
                 return;
             }
         }
@@ -93,7 +150,6 @@ namespace Lottery
             //简单点，没有做递归查找图片
             pictureList.Clear();
             nameList.Clear();
-
             try
             {
                 DirectoryInfo folder = new DirectoryInfo(_ImagePath);
@@ -147,7 +203,13 @@ namespace Lottery
                     foreach (FileInfo file in fiArr1)
                     {
                         nameList.Add(file.Name.Substring(0, file.Name.IndexOf('.')));
-                        pictureList.Add(Image.FromFile(file.FullName));
+
+                        Bitmap bit = new Bitmap(Image.FromFile(file.FullName));
+                        Bitmap bit2;
+                        bit2 = reResizeImage(bit, 180, 180);                        
+                        pictureList.Add(bit2);
+                        //bit.Dispose();
+                        //bit2.Dispose();
                     }
                 }
             }
@@ -175,8 +237,7 @@ namespace Lottery
             {
                 p1 = 0;
             }
-            this.picEmp.Image = pictureList[p1];
-            this.lblEmpName.Text = nameList[p1];
+         
             
             Image light = null;
             Image dark = null;
@@ -193,7 +254,6 @@ namespace Lottery
             {
                 pics[cp].Image = darkbit2;
                 cp++;
-                //return;
             }
           
             if (cp >= pics.Count)
@@ -214,101 +274,254 @@ namespace Lottery
                 }               
             }
              pics[cp].Image = lightbit2;
-       
+            this.picEmp.Image = pictureList[p1];
+            this.lblEmpName.Text = nameList[p1];
+
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            if (bError)
-            {
-                return;
-            }
-            this.timer1.Start();
-            this.btnStart.Enabled = false;
-            this.btnStop.Enabled = true;           
-        }
+        //private void btnStart_Click(object sender, EventArgs e)
+        //{
+        //    if (bError)
+        //    {
+        //        return;
+        //    }
+        //    this.timer1.Start();
+        //    //this.btnStart.Enabled = false;
+        //    //this.btnStop.Enabled = true;           
+        //}
 
         private void showPrize(int cp) {
-            string result = null;
+            string result = null;            
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (first_prize.ContainsKey(cp))
             {
-                result = "一定是特别的缘分，命中注定你就是一等奖 ";
-                MessageBox.Show(result);
+                result = "恭喜您,喜提:\n\t神奇面包处理器\n\n\t烤头花落未成阴\t\n\t面缺崩城山寂寂\t\n\t包含四象立乾坤\t\n\t机鸣舂响日暾暾\t\n";
+                first_num = int.Parse(ConfigurationManager.AppSettings["one"]);
+                config.AppSettings.Settings["one"].Value = (first_num - 1).ToString();
+                this.picEmp.Image = first_prize[cp];
+                this.lblEmpName.Text = "神奇面包处理器";
+                MessageBox.Show(result,
+                        "封奖榜",
+                        MessageBoxButtons.OK
+                );
+
             }
             else if (second_prize.ContainsKey(cp))
             {
-                result = "曾经我离一等奖只有0.05公分，三百分之一炷香后，我知道我是二等奖 ";
-                MessageBox.Show(result);
+                result = "恭喜您,喜提:\n\t高科技生米加工仪\n\n\t热处先争炙手去\t\n\t电奉茅山访道朝\t\n\t饭颗山头逢杜甫\t\n\t煲晴绿鸭鸣咬咬\t\n";
+                this.picEmp.Image = second_prize[cp];
+                this.lblEmpName.Text = "高科技生米加工仪";
+                MessageBox.Show(result,
+                         "封奖榜",
+                         MessageBoxButtons.OK
+                 );
             }
             else if (third_prize.ContainsKey(cp))
             {
-                result = "我想起那天我在夕阳下奔跑，那是我没得到的一等奖，我是三等奖 ";
-                MessageBox.Show(result);
+                result = "恭喜您,喜提:\n\t人类启蒙之火器\n\n\t热烟疏竹古原西\t\n\t电影还连后夜雷\t\n\t烤开金殿看星河\t\n\t箱有花开久客中\t\n";
+                this.picEmp.Image = third_prize[cp];
+                this.lblEmpName.Text = "人类启蒙之火器";
+                MessageBox.Show(result,
+                      "封奖榜",
+                      MessageBoxButtons.OK
+              );
+            }
+            else if (forth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t大分子去除仪\n\n\t滤他织女嫁牵牛\t\n\t水槛风凉不待秋\t\n\t壶觞须就陶彭泽\t\n";
+                this.picEmp.Image = forth_prize[cp];
+                this.lblEmpName.Text = "大分子去除仪";
+                MessageBox.Show(result,
+                      "封奖榜",
+                      MessageBoxButtons.OK
+              );
+            }
+            else if (fifth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t锅碗瓢盆没锅瓢盆一套\n\n\t碗凤斜飞入五弦\t\n\t碟闻私地学求仙\t\n\t套水登山四体轻\t\n\t装湖楼下水如天\t\n";
+                this.picEmp.Image = fifth_prize[cp];
+                this.lblEmpName.Text = "锅碗瓢盆没锅瓢盆一套";
+                MessageBox.Show(result,
+                         "封奖榜",
+                         MessageBoxButtons.OK
+                 );
+            }
+            else if (sixth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\tH20热进化器\n\n\t电光时掣紫金蛇\t\n\t热颜不及寒鸦色\t\n\t水南地空多明月\t\n\t壶觞既卜仙人夜\t\n";
+                this.picEmp.Image = sixth_prize[cp];
+                this.lblEmpName.Text = "H20热进化器";
+                MessageBox.Show(result,
+                          "封奖榜",
+                          MessageBoxButtons.OK
+                  );
+            }
+            else if (seventh_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t凉凉器\n\n\t凉州声韵喜参差\t\n\t水天一色无津涯\t\n\t杯前笑歌徒勉强\t\n\t奶把玉鞭骑御马\t\n\t锅年为客遍天涯\t\n";
+                this.picEmp.Image = seventh_prize[cp];
+                this.lblEmpName.Text = "凉凉器";
+                MessageBox.Show(result,
+                         "封奖榜",
+                         MessageBoxButtons.OK
+                 );
+            }
+            else if (eighth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t热控温保持器\n\n\t热恼渐知随念尽\t\n\t保金逐手快意尽\t\n\t温馨熟美鲜香起\t\n\t杯马朝衣野客心\t\n";
+                this.picEmp.Image = eighth_prize[cp];
+                this.lblEmpName.Text = "热控温保持器";
+                MessageBox.Show(result,
+                         "封奖榜",
+                         MessageBoxButtons.OK
+                 );
+            }
+            else if (ninth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t一带一路畅销瓷器套间\n\n\t甜迷蜂醉飞无声\t\n\t蜜房羽客类芳心\t\n\t对君新赠远诗章\t\n\t杯酒无辞到醉乡\t\n";
+                this.picEmp.Image = ninth_prize[cp];
+                this.lblEmpName.Text = "一带一路畅销瓷器套间";
+                MessageBox.Show(result,
+                        "封奖榜",
+                        MessageBoxButtons.OK
+                );
+            }
+            else if (tenth_prize.ContainsKey(cp))
+            {
+                result = "恭喜您,喜提:\n\t社会人容纳器\n\n\t佩缤纷以缭转兮\t\n\t奇君对酒遥相思\t\n\t布谷鸟啼桃李院\t\n\t袋叶朱唇似花发\t\n";
+                this.picEmp.Image = tenth_prize[cp];
+                this.lblEmpName.Text = "社会人容纳器";
+                MessageBox.Show(result,
+                        "封奖榜",
+                        MessageBoxButtons.OK
+                );
             }
             else
             {
-                MessageBox.Show("什么情况 ，奖品呢");
+                MessageBox.Show("什么情况 ，后台工程师麻烦站出来一下，你需要给我一个解释，奖品是不是被你黑了？");
             }
             pics[cp].Hide();
             if (!choosed_prize.ContainsKey(cp))
             {
                 choosed_prize.Add(cp, 1);
             }
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            this.timer1.Stop();
-            this.btnStart.Enabled = true;
-            this.btnStop.Enabled = false;
-            showPrize(cp);
-
-
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings"); // 重新加载新的配置文件 
 
         }
 
-        private void btnInitPool_Click(object sender, EventArgs e)
-        {
-            LoadFromFile();
-            prizePoolInit();
-            string result = string.Format("初始化奖池完成，当前奖池一等奖个数为{0}，二等奖个数为{1}，三等奖个数为{2}",
-                first_prize.Count,second_prize.Count,third_prize.Count); 
-            MessageBox.Show(result);
+        //private void btnStop_Click(object sender, EventArgs e)
+        //{
+        //    this.timer1.Stop();
+        //    //this.btnStart.Enabled = true;
+        //    //this.btnStop.Enabled = false;
+        //    showPrize(cp);
+        //}
+
+        private void read_config() {      
+            first_num = int.Parse(ConfigurationManager.AppSettings["one"]);
+            second_num = int.Parse(ConfigurationManager.AppSettings["two"]);
+            third_num = int.Parse(ConfigurationManager.AppSettings["three"]);
+            forth_num = int.Parse(ConfigurationManager.AppSettings["four"]);
+            fifth_num = int.Parse(ConfigurationManager.AppSettings["five"]);
+            sixth_num = int.Parse(ConfigurationManager.AppSettings["six"]);
+            seventh_num = int.Parse(ConfigurationManager.AppSettings["seven"]);
+            eightth_num = int.Parse(ConfigurationManager.AppSettings["eight"]);
+            ninth_num = int.Parse(ConfigurationManager.AppSettings["nine"]);
+            tenth_num = int.Parse(ConfigurationManager.AppSettings["ten"]);
+            Console.WriteLine("first ====" + first_num);
+            Console.WriteLine("two ====" + second_num);
+            Console.WriteLine("third_num ====" + third_num);
+            Console.WriteLine("forth_num ====" + forth_num);
+            Console.WriteLine("fifth_num ====" + fifth_num);
+            Console.WriteLine("sixth_num ====" + sixth_num);
+            Console.WriteLine("seventh_num ====" + seventh_num);
+            Console.WriteLine("eightth_num ====" + eightth_num);
+            Console.WriteLine("ninth_num ====" + ninth_num);
+            Console.WriteLine("tenth_num ====" + tenth_num);
+
         }
 
-        private void prizePoolInit() {
+        //private void btnInitPool_Click(object sender, EventArgs e)
+        //{
+        //    read_config();
+        //    LoadFromFile();
+        //    prizePoolInit();
+        //    string result = string.Format("初始化奖池完成，当前奖池一等奖个数为{0}，二等奖个数为{1}，三等奖个数为{2}",
+        //        first_prize.Count,second_prize.Count,third_prize.Count); 
+        //    MessageBox.Show(result);
+        //}
+
+        private void prizePoolInit() {            
             first_prize.Clear();
             second_prize.Clear();
             third_prize.Clear();
+            forth_prize.Clear();
+            fifth_prize.Clear();
+            sixth_prize.Clear(); ;
+            seventh_prize.Clear();
+            eighth_prize.Clear();
+            ninth_prize.Clear();
+            tenth_prize.Clear();
             Hashtable hashtable = new Hashtable();
             Random rm = new Random();
-            int RmNum = 36;
-            int first_num = 3;
-            int second_num = 9;
-            int[] array = new int[36];
+
+            int[] array = new int[RmNum];
             for (int i = 0; i < RmNum; i++) {
                 array[i] = i;
             }
             int[] newarrry = utils.RandomSort(array);
             for (int i = 0; i < RmNum; i++)
             {
-                    if (first_prize.Count < first_num) {
-                        first_prize.Add(newarrry[i], 1);
-                    }else if (second_prize.Count < second_num) {
-                        second_prize.Add(newarrry[i], 2);
-                    }
-                    else {
-                        third_prize.Add(newarrry[i], 3);
-                    }                   
+                if (first_prize.Count < first_num)
+                {
+                  
+                    first_prize.Add(newarrry[i], one_bit);
+                }
+                else if (second_prize.Count < second_num)
+                {                 
+                    second_prize.Add(newarrry[i], two_bit);
+                }
+                else if (third_prize.Count < third_num)
+                {                 
+                    third_prize.Add(newarrry[i], three_bit);
+                }
+                else if (forth_prize.Count < forth_num)
+                {
+                    forth_prize.Add(newarrry[i], four_bit);
+                }
+                else if (fifth_prize.Count < fifth_num)
+                {
+                    fifth_prize.Add(newarrry[i], five_bit);
+                }
+                else if (sixth_prize.Count < sixth_num)
+                {
+                    sixth_prize.Add(newarrry[i], six_bit);
+                }
+                else if (seventh_prize.Count < seventh_num)
+                {
+                    seventh_prize.Add(newarrry[i], seven_bit);
+                }
+                else if (eighth_prize.Count < eightth_num)
+                {
+                    eighth_prize.Add(newarrry[i], eight_bit);
+                }
+                else if (ninth_prize.Count < ninth_num)
+                {
+                    ninth_prize.Add(newarrry[i], nine_bit);
+                }
+                else {
+                    tenth_prize.Add(newarrry[i], ten_bit);
+                }
 
-                    Console.WriteLine(newarrry[i].ToString());
+                Console.WriteLine(newarrry[i].ToString());
                 
             }
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             //频率：10ms - 210ms
-            this.timer1.Interval = 210 - this.trackBar1.Value * 20;
+            //this.timer1.Interval = 180 - this.trackBar1.Value * 20;
         }
 
         private void toolStripMenuItemAuthor_Click(object sender, EventArgs e)
@@ -561,132 +774,7 @@ namespace Lottery
             pics.Add(pictureBox36);
         }
 
-        //private void pictureBox31_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void pictureBox28_Click(object sender, EventArgs e)
-        //{
-        //    cp = 28;
-        //    showPrize(cp-1);
-        //    this.pictureBox28.Hide();
-
-        //}
-
-        //private void pictureBox29_Click(object sender, EventArgs e)
-        //{
-        //    cp = 29;
-        //    showPrize(cp-1);
-        //    this.pictureBox29.Hide();
-        //}
-
-        //private void pictureBox30_Click(object sender, EventArgs e)
-        //{
-        //    cp = 30;
-        //    showPrize(cp-1);
-        //    this.pictureBox30.Hide();
-        //}
-
-        //private void pictureBox32_Click(object sender, EventArgs e)
-        //{
-        //    cp = 32;
-        //    showPrize(cp-1);
-        //    this.pictureBox32.Hide();
-
-        //}
-
-        //private void pictureBox34_Click(object sender, EventArgs e)
-        //{
-        //    cp = 34;
-        //    showPrize(cp-1);
-        //    this.pictureBox34.Hide();
-        //}
-
-        //private void pictureBox35_Click(object sender, EventArgs e)
-        //{
-        //    cp = 35;
-        //    showPrize(cp-1);
-        //    this.pictureBox35.Hide();
-        //}
-
-        //private void pictureBox36_Click(object sender, EventArgs e)
-        //{
-        //    cp = 36;
-        //    showPrize(cp-1);
-        //    this.pictureBox36.Hide();
-        //}
-
-        //private void pictureBox27_Click(object sender, EventArgs e)
-        //{
-        //    cp = 27;
-        //    showPrize(cp-1);
-        //    this.pictureBox27.Hide();
-        //}
-
-        //private void pictureBox20_Click(object sender, EventArgs e)
-        //{
-        //    cp = 20;
-        //    showPrize(cp-1);
-        //    this.pictureBox20.Hide();
-        //}
-
-        //private void pictureBox21_Click(object sender, EventArgs e)
-        //{
-        //    cp = 21;
-        //    showPrize(cp-1);
-        //    this.pictureBox21.Hide();
-        //}
-
-        //private void pictureBox22_Click(object sender, EventArgs e)
-        //{
-        //    cp = 22;
-        //    showPrize(cp-1);
-        //    this.pictureBox22.Hide();
-        //}
-
-        //private void pictureBox23_Click(object sender, EventArgs e)
-        //{
-        //    cp = 23;
-        //    showPrize(cp-1);
-        //    this.pictureBox23.Hide();
-        //}
-
-        //private void pictureBox24_Click(object sender, EventArgs e)
-        //{
-        //    cp = 24;
-        //    showPrize(cp-1);
-        //    this.pictureBox24.Hide();
-        //}
-
-        //private void pictureBox25_Click(object sender, EventArgs e)
-        //{
-        //    cp = 25;
-        //    showPrize(cp-1);
-        //    this.pictureBox25.Hide();
-        //}
-
-        //private void pictureBox26_Click(object sender, EventArgs e)
-        //{
-        //    cp = 26;
-        //    showPrize(cp-1);
-        //    this.pictureBox26.Hide();
-        //}
-
-        //private void pictureBox19_Click(object sender, EventArgs e)
-        //{
-        //    cp = 19;
-        //    showPrize(cp-1);
-        //    this.pictureBox19.Hide();
-        //}
-
-        //private void pictureBox27_Click_1(object sender, EventArgs e)
-        //{
-        //    cp = 27;
-        //    showPrize(cp-1);
-        //    this.pictureBox27.Hide();
-        //}
-
+       
         private void pictureBox18_Click(object sender, EventArgs e)
         {
             cp = 18;
@@ -878,6 +966,35 @@ namespace Lottery
             cp = 27;
             showPrize(cp-1);
             this.pictureBox27.Hide();
+        }
+
+        private void roundButton1_Click(object sender, EventArgs e)
+        {//start
+            if (bError)
+            {
+                return;
+            }
+            this.timer1.Start();
+            this.ka.Enabled = false;
+            this.roundButton2.Enabled = true;
+        }
+
+        private void roundButton1_Click_1(object sender, EventArgs e)
+        {//init
+            read_config();
+            LoadFromFile();
+            prizePoolInit();
+            string result = string.Format("初始化奖池完成，当前奖池一等奖个数为{0}，二等奖个数为{1}，三等奖个数为{2}",
+                first_prize.Count, second_prize.Count, third_prize.Count);
+            MessageBox.Show(result);
+        }
+
+        private void roundButton2_Click(object sender, EventArgs e)
+        {//stop
+            this.timer1.Stop();
+            this.ka.Enabled = true;
+            this.roundButton2.Enabled = false;
+            showPrize(cp);
         }
 
         //private void pictureBox20_Click(object sender, EventArgs e)

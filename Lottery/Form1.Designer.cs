@@ -34,12 +34,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrize));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnInitPool = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.picEmp = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDoc = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +41,8 @@
             this.toolStripMenuItemAuthor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.滚动速度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblEmpName = new System.Windows.Forms.Label();
+            this.picEmp = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox29 = new System.Windows.Forms.PictureBox();
@@ -84,11 +79,12 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblEmpName = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmp)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.roundButton2 = new Lottery.RoundButton();
+            this.roundButton1 = new Lottery.RoundButton();
+            this.ka = new Lottery.RoundButton();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmp)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
@@ -125,69 +121,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(451, 640);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(87, 50);
-            this.btnStart.TabIndex = 2;
-            this.btnStart.Text = "抽 奖";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(611, 640);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(89, 50);
-            this.btnStop.TabIndex = 3;
-            this.btnStop.Text = "停 止";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnInitPool
-            // 
-            this.btnInitPool.Location = new System.Drawing.Point(300, 640);
-            this.btnInitPool.Name = "btnInitPool";
-            this.btnInitPool.Size = new System.Drawing.Size(92, 50);
-            this.btnInitPool.TabIndex = 0;
-            this.btnInitPool.Text = "初始化奖池";
-            this.btnInitPool.UseVisualStyleBackColor = true;
-            this.btnInitPool.Click += new System.EventHandler(this.btnInitPool_Click);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(562, 572);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(191, 45);
-            this.trackBar1.TabIndex = 3;
-            this.trackBar1.Value = 5;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(435, 590);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "滚动速度：";
-            // 
-            // picEmp
-            // 
-            this.picEmp.Location = new System.Drawing.Point(24, 572);
-            this.picEmp.Name = "picEmp";
-            this.picEmp.Size = new System.Drawing.Size(128, 128);
-            this.picEmp.TabIndex = 7;
-            this.picEmp.TabStop = false;
-            this.picEmp.Click += new System.EventHandler(this.picEmp_Click);
             // 
             // menuStrip1
             // 
@@ -245,14 +184,26 @@
             this.滚动速度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.滚动速度ToolStripMenuItem.Text = "滚动速度";
             // 
-            // pictureBox1
+            // lblEmpName
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(104, 120);
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.lblEmpName.AutoSize = true;
+            this.lblEmpName.BackColor = System.Drawing.Color.Transparent;
+            this.lblEmpName.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEmpName.Location = new System.Drawing.Point(696, 518);
+            this.lblEmpName.Name = "lblEmpName";
+            this.lblEmpName.Size = new System.Drawing.Size(114, 20);
+            this.lblEmpName.TabIndex = 0;
+            this.lblEmpName.Text = "翻开有惊喜";
+            this.lblEmpName.Click += new System.EventHandler(this.lblEmpName_Click);
+            // 
+            // picEmp
+            // 
+            this.picEmp.Location = new System.Drawing.Point(700, 550);
+            this.picEmp.Name = "picEmp";
+            this.picEmp.Size = new System.Drawing.Size(180, 180);
+            this.picEmp.TabIndex = 7;
+            this.picEmp.TabStop = false;
+            this.picEmp.Click += new System.EventHandler(this.picEmp_Click);
             // 
             // panel1
             // 
@@ -624,17 +575,74 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // lblEmpName
+            // pictureBox1
             // 
-            this.lblEmpName.AutoSize = true;
-            this.lblEmpName.BackColor = System.Drawing.Color.Transparent;
-            this.lblEmpName.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblEmpName.Location = new System.Drawing.Point(158, 624);
-            this.lblEmpName.Name = "lblEmpName";
-            this.lblEmpName.Size = new System.Drawing.Size(72, 20);
-            this.lblEmpName.TabIndex = 0;
-            this.lblEmpName.Text = "白老师";
-            this.lblEmpName.Click += new System.EventHandler(this.lblEmpName_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(104, 120);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // roundButton2
+            // 
+            this.roundButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.roundButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.roundButton2.FlatAppearance.BorderSize = 0;
+            this.roundButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roundButton2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.roundButton2.ForeColor = System.Drawing.Color.White;
+            this.roundButton2.ImageEnter = null;
+            this.roundButton2.ImageNormal = null;
+            this.roundButton2.Location = new System.Drawing.Point(471, 557);
+            this.roundButton2.Name = "roundButton2";
+            this.roundButton2.Radius = 112;
+            this.roundButton2.Size = new System.Drawing.Size(112, 112);
+            this.roundButton2.TabIndex = 12;
+            this.roundButton2.Text = "STOP";
+            this.roundButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.roundButton2.UseVisualStyleBackColor = false;
+            this.roundButton2.Click += new System.EventHandler(this.roundButton2_Click);
+            // 
+            // roundButton1
+            // 
+            this.roundButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.roundButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.roundButton1.FlatAppearance.BorderSize = 0;
+            this.roundButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roundButton1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.roundButton1.ForeColor = System.Drawing.Color.White;
+            this.roundButton1.ImageEnter = null;
+            this.roundButton1.ImageNormal = null;
+            this.roundButton1.Location = new System.Drawing.Point(68, 557);
+            this.roundButton1.Name = "roundButton1";
+            this.roundButton1.Radius = 112;
+            this.roundButton1.Size = new System.Drawing.Size(112, 112);
+            this.roundButton1.TabIndex = 11;
+            this.roundButton1.Text = "初始化奖池";
+            this.roundButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.roundButton1.UseVisualStyleBackColor = false;
+            this.roundButton1.Click += new System.EventHandler(this.roundButton1_Click_1);
+            // 
+            // ka
+            // 
+            this.ka.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.ka.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ka.FlatAppearance.BorderSize = 0;
+            this.ka.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ka.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ka.ForeColor = System.Drawing.Color.White;
+            this.ka.ImageEnter = null;
+            this.ka.ImageNormal = null;
+            this.ka.Location = new System.Drawing.Point(277, 557);
+            this.ka.Name = "ka";
+            this.ka.Radius = 112;
+            this.ka.Size = new System.Drawing.Size(112, 112);
+            this.ka.TabIndex = 10;
+            this.ka.Text = "开始抽奖";
+            this.ka.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ka.UseVisualStyleBackColor = false;
+            this.ka.Click += new System.EventHandler(this.roundButton1_Click);
             // 
             // FormPrize
             // 
@@ -643,15 +651,13 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(904, 749);
+            this.ClientSize = new System.Drawing.Size(904, 742);
+            this.Controls.Add(this.roundButton2);
+            this.Controls.Add(this.roundButton1);
+            this.Controls.Add(this.ka);
             this.Controls.Add(this.picEmp);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lblEmpName);
-            this.Controls.Add(this.btnInitPool);
-            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(920, 800);
@@ -660,11 +666,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "命中注定抽奖程序1.0";
             this.Load += new System.EventHandler(this.FormPrize_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmp)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmp)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
@@ -701,6 +705,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -708,11 +713,7 @@
 
         #endregion
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Button btnInitPool;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Label label1;
+
         private System.Windows.Forms.PictureBox picEmp;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelp;
@@ -759,6 +760,9 @@
         private System.Windows.Forms.PictureBox pictureBox34;
         private System.Windows.Forms.PictureBox pictureBox35;
         private System.Windows.Forms.PictureBox pictureBox36;
+        private RoundButton ka;
+        private RoundButton roundButton1;
+        private RoundButton roundButton2;
     }
 }
 

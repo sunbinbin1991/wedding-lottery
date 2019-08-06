@@ -20,3 +20,4 @@ D:\git\lottery_bot\c#\Lottery2\Lottery\bin\Debug\Lottery.pdb
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Debug\Lottery.FormPrize.resources
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Debug\Lottery.Properties.Resources.resources
 D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Debug\Lottery.csproj.GenerateResource.Cache
+D:\git\lottery_bot\c#\Lottery2\Lottery\obj\x86\Debug\Lottery.csprojResolveAssemblyReference.cache
