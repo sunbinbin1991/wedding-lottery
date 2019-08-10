@@ -1,4 +1,5 @@
-﻿namespace Lottery
+﻿using System.Drawing;
+namespace Lottery
 {
 
     partial class FormPrize
@@ -207,7 +208,8 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            //this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImage = Image.FromFile("Images\\background\\wedding.jpg");
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.Controls.Add(this.pictureBox28);
             this.panel1.Controls.Add(this.pictureBox29);
